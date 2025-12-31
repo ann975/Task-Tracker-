@@ -1,0 +1,13 @@
+services:
+  # PostgreSQL database
+  db:
+    # The Docker image of postgres 
+    image: postgres:latest
+    # The ports to expose to the host container
+    ports:
+      - "5432:5432"
+    # Restart automatically if the container stops
+    restart: always
+    # Environment variables
+    environment:
+      POSTGRES_PASSWORD: changemeinprod!
