@@ -1,9 +1,11 @@
 services:
   # PostgreSQL database
+  # single service - db
   db:
     # The Docker image of postgres 
     image: postgres:latest
     # The ports to expose to the host container
+    # map port 5432 to 5432 (default postgres port)
     ports:
       - "5432:5432"
     # Restart automatically if the container stops
@@ -11,3 +13,5 @@ services:
     # Environment variables
     environment:
       POSTGRES_PASSWORD: changemeinprod!
+    
+    # not specifying any volumes (if restart Docker environment will lose all data in database )
