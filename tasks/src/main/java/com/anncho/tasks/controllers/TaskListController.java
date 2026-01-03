@@ -3,16 +3,20 @@ package com.anncho.tasks.controllers;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.anncho.tasks.domain.dto.TaskListDto;
+import com.anncho.tasks.domain.entities.TaskList;
 import com.anncho.tasks.mappers.TaskListMapper;
 import com.anncho.tasks.services.TaskListService;
 
 
+
 @RestController
-@RequestMapping(path = "/task-lists") // declare path controller operates on
+@RequestMapping(path = "/api/task-lists") // declare path controller operates on
 // when getting a HTTP get request for this endpoint 
 // will map to @GetMapping endpoint method below 
 // will then call task list service , getting list of task lists
@@ -38,6 +42,20 @@ public class TaskListController {
             .map(taskListMapper:: toDto)
             .toList();
     }
+
+    // take taskListDto that was passed in through request body
+    // convert into task list 
+    // use task list to create new task list in db via taskListService
+    // return task list that was created
+    // convert to task list dto and return to caller 
+    @PostMapping
+    public TaskListDto createTaskList(@RequestBody TaskListDto taskListDto){
+        TaskList createdTaskList = taskListService.createTasklist(
+            taskListMapper.fromDto(taskListDto)
+        );
+        return taskListMapper.toDto(createdTaskList);
+    }
+    
     
     
 }

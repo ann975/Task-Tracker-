@@ -1,5 +1,6 @@
 package com.anncho.tasks.services.impl;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -22,6 +23,31 @@ public class TaskListServiceImpl implements TaskListService {
     @Override
     public List<TaskList> listTaskLists() {
        return taskListRespository.findAll();
+    }
+
+    @Override
+    public TaskList createTasklist(TaskList taskList) {
+
+        // make sure task list has not already been created 
+        if(taskList.getId() != null){
+            throw new IllegalArgumentException("Task list already has an ID.");
+        }
+
+        // task list must have title
+        if(taskList.getTitle() == null || taskList.getTitle().isBlank()){
+            throw new IllegalArgumentException("Task list title must be present.");
+        }
+
+        LocalDateTime now = LocalDateTime.now();
+        // return task list created in db
+        return taskListRespository.save(new TaskList(
+            null,
+            taskList.getTitle(),
+            taskList.getDescription(),
+            null,
+            now,
+            now
+        ));
     }
     
 }
