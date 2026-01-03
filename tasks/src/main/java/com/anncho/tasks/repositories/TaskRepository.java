@@ -11,6 +11,8 @@ import com.anncho.tasks.domain.entities.Task;
 
 @Repository
 public interface TaskRepository extends JpaRepository<Task, UUID>{
+    //custom queries needed for our task
+    // define to methods in interface
     List<Task> findByTaskListId(UUID taskListId);
     Optional<Task> findByTaskListIdAndId(UUID taskListId, UUID id);
 

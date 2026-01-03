@@ -11,8 +11,10 @@ import com.anncho.tasks.services.TaskListService;
 @Service
 public class TaskListServiceImpl implements TaskListService {
 
+    // inject single dependency
     private final TaskListRepository taskListRespository;
 
+    // constructor  
     public TaskListServiceImpl(TaskListRepository taskListRespository) {
         this.taskListRespository = taskListRespository;
     }
