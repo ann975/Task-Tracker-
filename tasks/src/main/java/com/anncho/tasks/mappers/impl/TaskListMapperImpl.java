@@ -54,9 +54,10 @@ public class TaskListMapperImpl implements TaskListMapper{
                 .orElse(0),
             calculateTaskListProgress(taskList.getTasks()),
             Optional.ofNullable(taskList.getTasks())
-                .map(tasks -> 
-                    tasks.stream().map(taskMapper::toDto).toList())
-                    .orElse(null)
+                .map(tasks -> tasks.stream()
+                    .map(taskMapper::toDto)
+                    .toList()
+                ).orElse(null)
             
             
         );
@@ -67,9 +68,9 @@ public class TaskListMapperImpl implements TaskListMapper{
             return null;
         }
 
-        long closedtaskCount = tasks.stream().filter(task-> 
-            TaskStatus.CLOSED == task.getStatus())
-            .count();
+        long closedtaskCount = tasks.stream()
+                                    .filter(task-> TaskStatus.CLOSED == task.getStatus())
+                                    .count();
 
         return (double) closedtaskCount / tasks.size();
     }
