@@ -5,10 +5,13 @@ import java.util.UUID;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.anncho.tasks.domain.dto.TaskDto;
+import com.anncho.tasks.domain.entities.Task;
 import com.anncho.tasks.mappers.TaskMapper;
 import com.anncho.tasks.services.TaskService;
 
@@ -30,6 +33,19 @@ public class TasksController {
             .stream()
             .map(taskMapper::toDto)
             .toList();
+    }
+
+    @PostMapping
+    public TaskDto createTask(
+            @PathVariable("task_list_id") UUID taskListId,
+            @RequestBody TaskDto taskDto){
+
+        Task createdTask = taskService.createTask(
+            taskListId, 
+            taskMapper.fromDto(taskDto));
+
+        return taskMapper.toDto(createdTask);
+     
     }
 
 

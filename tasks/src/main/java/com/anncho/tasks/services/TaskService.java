@@ -7,4 +7,5 @@ import com.anncho.tasks.domain.entities.Task;
 
 public interface TaskService {
     List<Task> listTasks(UUID taskListID);
+    Task createTask(UUID taskListId, Task task);
 }
